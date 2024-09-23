@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M7APP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #002C1D;
+        }
+
+        .top-bar {
+            background-color: #01B276;
+            color: white;
+            padding: 15px;
+            font-size: 1.5em;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            font-weight: bold;
+            transform: translateX(-5px);
+        }
+
+        .bottom-bar {
+            background-color: #01B276;
+            color: white;
+            padding: 10px;
+            font-size: 1em;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .content img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .content h1,
+        .content h2,
+        .content h3 {
+            color: white;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .buttons button {
+            padding: 15px;
+            font-size: 1em;
+            background-color: #01B276;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons button i {
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .buttons button .text {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            height: 100%;
+            background-color: #016F49;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            border: 2px solid #01B276;
+        }
+
+        .side-menu .circle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #01B276;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .side-menu .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            border-bottom: 2px solid #01B276;
+            padding-bottom: 15px;
+        }
+
+        .side-menu .header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 30px 30px 0;
+            margin: 0;
+        }
+
+        .side-menu li {
+            margin: 30px 0;
+        }
+
+        .side-menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.6em;
+        }:
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .buttons h3 {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        #menu-toggle {
+            cursor: pointer;
+            float: right;
+            margin-right: 20px;
+        }
+
+        .message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #002C1D;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+        }
+
+        .close-message {
+            background-color: #45a049;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        M7APP
+        <i class="fas fa-bars" id="menu-toggle"></i>
+    </div>
+
+    <div class="side-menu" id="side-menu">
+        <div class="circle" id="close-menu">×</div>
+        <div class="header">
+            <img src="icon2.png" alt="صورة M7APP">
+        </div>
+        <ul>
+            <li><a href="#">page Facebook</a></li>
+            <li><a href="#">group WhatsApp</a></li>
+            <li><a href="#">contact Instagram</a></li>
+            <li><a href="#">page YouTube</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h3>Download Football 2024 now from M7APP for free</h3>
+        <h1>eFotball™</h1>
+        <img src="icon.png" alt="صورة">
+        <h2>VERSION 9.0.0</h2>
+        <div class="buttons">
+            <button onclick="window.location.href='my9app.apk'"><i class="fas fa-file-download"></i><span class="text">Download</span></button>
+            <button onclick="window.open('https://www.mediafire.com/file/0muc16n10w6wy34/my9app.apk/file', '_blank')"><i class="fas fa-cloud-download-alt"></i><span class="text">MediaFire</span></button>
+            <button onclick="showMessage()"><i class="fab fa-google-play"></i><span class="text">Play Store</span></button>
+            <h3>This site is just an experiment to confirm it. Thank you for trying it.</h3>
+        </div>
+    </div>
+
+    <div class="bottom-bar">جميع الحقوق محفوظة© 2024</div>
+
+    <div class="message" id="message-box">
+        <p>هذا العنصر لا يتوفر حاليا في Play Store.</p>
+        <button class="close-message" onclick="closeMessage()">Close</button>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideMenu = document.getElementById('side-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const messageBox = document.getElementById('message-box');
+
+        menuToggle.addEventListener('click', () => {
+            sideMenu.classList.toggle('open');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            sideMenu.classList.remove('open');
+        });
+
+        function showMessage() {
+            messageBox.style.display = 'block';
+        }
+
+        function closeMessage() {
+            messageBox.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
